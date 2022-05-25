@@ -15,12 +15,15 @@
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/the-dark-arcane/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
       "net.lordnoisy.thedarkarcane.TheDarkArcane"
+    ],
+    "client": [
+      "net.lordnoisy.thedarkarcane.TheDarkArcaneClientMod"
     ]
   },
   "mixins": [
