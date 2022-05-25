@@ -12,12 +12,9 @@ public class BloodParticle extends SpriteBillboardParticle {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
 
         this.velocityMultiplier = 0.6F;
-        this.x = xCoord;
-        this.y = yCoord;
-        this.z = zCoord;
-        this.velocityX = xd;
-        this.velocityY = yd;
-        this.velocityZ = zd;
+        this.x = xd;
+        this.y = yd;
+        this.z = zd;
         this.scale *= 1.2F;
         this.maxAge = 200; //How long
         this.setSpriteForAge(spriteSet);
