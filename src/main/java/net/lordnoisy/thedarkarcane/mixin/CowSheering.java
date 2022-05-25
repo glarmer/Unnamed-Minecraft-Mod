@@ -64,10 +64,10 @@ public class CowSheering extends AnimalEntity implements Shearable{
         Random r = new Random();
 
         for (int count = 0; count<30; count++) {
-            float randomX = ((float)(r.nextInt((10-1)+1)+1))/7.0f;
-            float randomY = ((float)(r.nextInt((10-1)+1)+1))/7.0f;
-            float randomZ = ((float)(r.nextInt((10-1)+1)+1))/7.0f;
-            spawnParticle(world, position.add(0, 1, 0), ModParticles.BLOOD_PARTICLE, new Vec3d(randomX,randomY,randomZ));
+            float randomX = ((float)(r.nextInt((10-1)+1)+1))/50.0f;
+            float randomY = -0.1f;
+            float randomZ = ((float)(r.nextInt((10-1)+1)+1))/50.0f;
+            spawnParticle(world, position.add(0, 1, 0), ModParticles.BLOOD_PARTICLE, new Vec3d(randomX,randomY,randomZ), 1);
         }
 
 
@@ -92,14 +92,14 @@ public class CowSheering extends AnimalEntity implements Shearable{
         }
     }
 
-    public void spawnParticle(World world, Vec3d pos, ParticleEffect particle, Vec3d vel) {
+    public void spawnParticle(World world, Vec3d pos, ParticleEffect particle, Vec3d vel, double speed) {
 
         if (world.isClient) {
             world.addParticle(particle, pos.x, pos.y, pos.z, vel.x, vel.y, vel.z);
         } else {
             if (world instanceof ServerWorld) {
                 ServerWorld sw = (ServerWorld) world;
-                sw.spawnParticles(particle, pos.x, pos.y, pos.z, 1, vel.x, vel.y, vel.z, 0);
+                sw.spawnParticles(particle, pos.x, pos.y, pos.z, 1, vel.x, vel.y, vel.z, speed);
             }
         }
     }
