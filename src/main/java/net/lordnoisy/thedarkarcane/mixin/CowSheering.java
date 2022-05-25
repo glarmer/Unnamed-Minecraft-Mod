@@ -67,7 +67,7 @@ public class CowSheering extends AnimalEntity implements Shearable{
             float randomX = ((float)(r.nextInt((10-1)+1)+1))/7.0f;
             float randomY = ((float)(r.nextInt((10-1)+1)+1))/7.0f;
             float randomZ = ((float)(r.nextInt((10-1)+1)+1))/7.0f;
-            ModParticles.spawnParticle(world, position.add(0, 1, 0), ModParticles.BLOOD_PARTICLE, new Vec3d(randomX,randomY,randomZ));
+            spawnParticle(world, position.add(0, 1, 0), ModParticles.BLOOD_PARTICLE, new Vec3d(randomX,randomY,randomZ));
         }
 
 
@@ -92,7 +92,17 @@ public class CowSheering extends AnimalEntity implements Shearable{
         }
     }
 
+    public void spawnParticle(World world, Vec3d pos, ParticleEffect particle, Vec3d vel) {
 
+        if (world.isClient) {
+            world.addParticle(particle, pos.x, pos.y, pos.z, vel.x, vel.y, vel.z);
+        } else {
+            if (world instanceof ServerWorld) {
+                ServerWorld sw = (ServerWorld) world;
+                sw.spawnParticles(particle, pos.x, pos.y, pos.z, 1, vel.x, vel.y, vel.z, 0);
+            }
+        }
+    }
 
     @Override
     public boolean isShearable() {
