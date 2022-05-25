@@ -2,6 +2,7 @@ package net.lordnoisy.thedarkarcane;
 
 import net.fabricmc.api.ModInitializer;
 import net.lordnoisy.thedarkarcane.item.ModItems;
+import net.lordnoisy.thedarkarcane.particle.ModParticles;
 import net.lordnoisy.thedarkarcane.util.ModRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class TheDarkArcane implements ModInitializer {
 		LOGGER.info("Initialising The Dark Arcane!");
 
 
-
+		ModParticles.registerParticles();
 		ModItems.registerModItems();
 		ModRegistries.registerModStuffs();
 		GeckoLib.initialize();
