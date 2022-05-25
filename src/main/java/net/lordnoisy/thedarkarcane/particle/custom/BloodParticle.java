@@ -15,7 +15,7 @@ public class BloodParticle extends SpriteBillboardParticle {
         this.x = xd;
         this.y = yd;
         this.z = zd;
-        this.scale *= 0.75F;
+        this.scale = 1F;
         this.maxAge = 20; //How long
         this.setSpriteForAge(spriteSet);
 
