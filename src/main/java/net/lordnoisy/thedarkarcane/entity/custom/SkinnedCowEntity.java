@@ -1,5 +1,6 @@
 package net.lordnoisy.thedarkarcane.entity.custom;
 
+import net.lordnoisy.thedarkarcane.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
@@ -13,6 +14,8 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
@@ -21,6 +24,8 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -91,6 +96,18 @@ public class SkinnedCowEntity extends CowEntity implements IAnimatable {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("skinned_cow.animation.idle", true));
 
         return PlayState.CONTINUE;
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.isOf(Items.BUCKET) && !this.isBaby()) {
+            player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0f, 1.0f);
+            ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, ModItems.BLOOD_BUCKET.getDefaultStack());
+            player.setStackInHand(hand, itemStack2);
+            return ActionResult.success(this.world.isClient);
+        }
+        return super.interactMob(player, hand);
     }
 
     @Override
