@@ -13,15 +13,18 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -29,6 +32,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.EnumSet;
+import java.util.List;
 
 public class SkinnedCowEntity extends CowEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
@@ -42,6 +48,20 @@ public class SkinnedCowEntity extends CowEntity implements IAnimatable {
         return EntityType.COW.create(serverWorld);
     }
 
+    @Override
+    public boolean canBreedWith(AnimalEntity other) {
+        if (other.getClass() == CowEntity.class) {
+            return this.isInLove() && other.isInLove();
+        }
+        if (other == this) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
+        return this.isInLove() && other.isInLove();
+    }
+
     public static DefaultAttributeContainer.Builder setAttributes() {
         return AnimalEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
@@ -52,6 +72,10 @@ public class SkinnedCowEntity extends CowEntity implements IAnimatable {
 
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0, CowEntity.class));
+        this.goalSelector.add(3, new TemptGoal(this, 1.25, Ingredient.ofItems(Items.WHEAT), false));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.25));
         this.goalSelector.add(2, new WanderAroundPointOfInterestGoal(this, 0.75f, false));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.75f, 1));
         this.goalSelector.add(4, new LookAroundGoal(this));

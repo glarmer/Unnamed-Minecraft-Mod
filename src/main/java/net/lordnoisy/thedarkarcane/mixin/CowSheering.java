@@ -1,22 +1,19 @@
 package net.lordnoisy.thedarkarcane.mixin;
 
-import net.lordnoisy.thedarkarcane.TheDarkArcane;
 import net.lordnoisy.thedarkarcane.entity.ModEntities;
 import net.lordnoisy.thedarkarcane.entity.custom.SkinnedCowEntity;
 import net.lordnoisy.thedarkarcane.particle.ModParticles;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.AnimalMateGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
@@ -26,9 +23,8 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Random;
 
 @Mixin(CowEntity.class)
 public class CowSheering extends AnimalEntity implements Shearable{
@@ -87,6 +83,25 @@ public class CowSheering extends AnimalEntity implements Shearable{
             }
             cir.setReturnValue(ActionResult.CONSUME);
         }
+    }
+
+    @Override
+    public boolean canBreedWith(AnimalEntity other) {
+        if (other.getClass() == SkinnedCowEntity.class) {
+            return this.isInLove() && other.isInLove();
+        }
+        if (other == this) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
+        return this.isInLove() && other.isInLove();
+    }
+
+    @Inject(at = @At("HEAD"), method = "initGoals")
+    protected void initGoals(CallbackInfo ci) {
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0, SkinnedCowEntity.class));
     }
 
     public void spawnParticle(World world, Vec3d pos, ParticleEffect particle, Vec3d vel, double speed) {
