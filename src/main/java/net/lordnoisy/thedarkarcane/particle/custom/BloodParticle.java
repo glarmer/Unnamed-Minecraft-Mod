@@ -15,7 +15,8 @@ public class BloodParticle extends SpriteBillboardParticle {
         this.x = xd;
         this.y = yd;
         this.z = zd;
-        this.scale *= 1.2F;
+        this.gravityStrength = 0.3F;
+        this.scale *=  ((float)(Math.random()*(120-80+1)+80))/100f;
         this.maxAge = 200; //How long
         this.setSpriteForAge(spriteSet);
 
@@ -28,6 +29,12 @@ public class BloodParticle extends SpriteBillboardParticle {
     public void tick() {
         super.tick();
         fadeOut();
+        super.tick();
+        if(this.onGround){
+            this.gravityStrength = 0F;
+            this.setVelocity(0D, 0D, 0D);
+            this.setPos(x, y , z);
+        }
     }
 
     private void fadeOut() {

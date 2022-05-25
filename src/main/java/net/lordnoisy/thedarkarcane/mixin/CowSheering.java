@@ -60,14 +60,11 @@ public class CowSheering extends AnimalEntity implements Shearable{
         Vec3d rotationVector = this.getRotationVector();
         Vec3d position = this.getPos();
 
-
-        Random r = new Random();
-
         for (int count = 0; count<30; count++) {
-            float randomX = 0.1f;
-            float randomY = -0.1f;
-            float randomZ = 0.1f;
-            spawnParticle(world, position.add(0, 1, 0), ModParticles.BLOOD_PARTICLE, new Vec3d(randomX,randomY,randomZ), 1);
+            float volX = 0.5f;
+            float volY = 0.5f;
+            float volZ = 0.5f;
+            spawnParticle(world, position.add(0, 1, 0), ModParticles.BLOOD_PARTICLE, new Vec3d(volX,volY,volZ), 1);
         }
 
 
