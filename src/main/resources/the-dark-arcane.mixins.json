@@ -4,7 +4,7 @@
   "package": "net.lordnoisy.thedarkarcane.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CowSheering"
+    "CowShearing"
   ],
   "client": [
     "ExampleMixin"

@@ -27,9 +27,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CowEntity.class)
-public class CowSheering extends AnimalEntity implements Shearable{
+public class CowShearing extends AnimalEntity implements Shearable{
 
-    protected CowSheering(EntityType<? extends AnimalEntity> entityType, World world) {
+    protected CowShearing(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
 
