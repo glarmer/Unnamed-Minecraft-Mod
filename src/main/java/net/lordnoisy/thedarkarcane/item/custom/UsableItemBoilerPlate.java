@@ -1,6 +1,4 @@
-package net.lordnoisy.thedarkarcane.item.custom;/*
- * Decompiled with CFR 0.0.9 (FabricMC cc05e23f).
- */
+package net.lordnoisy.thedarkarcane.item.custom;
 
 import net.lordnoisy.thedarkarcane.TheDarkArcane;
 import net.minecraft.entity.LivingEntity;
