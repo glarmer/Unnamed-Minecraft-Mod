@@ -18,7 +18,7 @@ public class UsableItemBoilerPlate extends Item {
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        TheDarkArcane.LOGGER.info("Bow stopped being used");
+        TheDarkArcane.LOGGER.info("Item stopped being used");
     }
 
     @Override
