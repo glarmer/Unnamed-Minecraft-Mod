@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.lordnoisy.thedarkarcane.TheDarkArcane;
 import net.lordnoisy.thedarkarcane.entity.ModEntities;
 import net.lordnoisy.thedarkarcane.fluid.ModFluids;
+import net.lordnoisy.thedarkarcane.item.custom.UsableItemBoilerPlate;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -13,6 +14,9 @@ import net.minecraft.util.registry.Registry;
 
 public class ModItems {
     public static final Item TEAR = registerItem("tear", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+
+    public static final Item Test = registerItem("test_usable_item", new UsableItemBoilerPlate(new FabricItemSettings().group(ItemGroup.MISC)));
+
 
     public static final Item SKINNED_COW_SPAWN_EGG = registerItem("skinned_cow_spawn_egg",
             new SpawnEggItem(ModEntities.SKINNED_COW, 0x948e8d, 0x3b3635,

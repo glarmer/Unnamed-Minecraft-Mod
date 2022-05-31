@@ -2,6 +2,7 @@ package net.lordnoisy.thedarkarcane.fluid;
 
 import net.lordnoisy.thedarkarcane.block.ModBlocks;
 import net.lordnoisy.thedarkarcane.item.ModItems;
+import net.lordnoisy.thedarkarcane.particle.ModParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -63,7 +64,7 @@ public abstract class BloodFluid extends FlowableFluid {
 
     @Nullable
     public ParticleEffect getParticle() {
-        return ParticleTypes.DRIPPING_WATER;
+        return ModParticles.BLOOD_PARTICLE;
     }
 
     protected boolean isInfinite() {
