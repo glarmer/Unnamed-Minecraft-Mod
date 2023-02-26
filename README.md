@@ -1,2 +1,4 @@
 # Unnamed Minecraft Mod
-A Minecraft mod without a name, so tragic
+This is a work in progress Minecraft mod.
+
+Current functionality is minimal.
